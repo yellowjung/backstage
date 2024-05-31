@@ -1,0 +1,193 @@
+app:
+  title: Scaffolded Backstage App
+  baseUrl: http://localhost:3000
+
+organization:
+  name: My Company
+
+backend:
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/auth/service-to-service-auth for
+  # information on the format
+  # auth:
+  #   keys:
+  #     - secret: ${BACKEND_SECRET}
+  baseUrl: http://localhost:7007
+  listen:
+    port: 7007
+    # Uncomment the following host directive to bind to specific interfaces
+    # host: 127.0.0.1
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+  # This is for local development only, it is not recommended to use this in production
+  # The production database configuration is stored in app-config.production.yaml
+  reading:
+    allow:
+      - host: saas-git.duckdns.org:6060
+        skipSslVerification: true
+
+  database:
+    #   client: better-sqlite3
+    #   connection: ':memory:'
+    client: pg
+    connection:
+      host: 127.0.0.1
+      # host: 172.19.152.150
+      port: 55432
+      user: backstage
+      password:
+        secret
+        # https://node-postgres.com/features/ssl
+      # ssl:
+      #   host is only needed if the connection name differs from the certificate name.
+      #   This is for example the case with CloudSQL.
+      #   host: servername in the certificate
+      #   ca:
+      #     $file: <file-path>/server.pem
+      #   key:
+      #     $file: <file-path>/client.key
+      #   cert:
+      #     $file: <file-path>/client-cert.pem
+  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
+integrations:
+  github:
+    - host: github.com
+      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+      # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
+      token: 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
+      #token: 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
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
+  gitlab:
+    - host: saas-git.duckdns.org:6060
+      token: glpat-eZpgH32CHysiNG25c7kn
+      apiBaseUrl: https://saas-git.duckdns.org:6060/api/v4
+
+  argocd:
+    - host: https://localhost:8080/api/v1
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJiYWNrc3RhZ2U6YXBpS2V5IiwibmJmIjoxNzA3MTk4ODk2LCJpYXQiOjE3MDcxOTg4OTYsImp0aSI6IjgwYmMwZGExLWI2N2QtNGQwMS05YzNjLTVlYjBmNGI3M2U0MSJ9.BYcmL-HXxeD2FUoRoIDVPRoI0bweWUmu2QK24AjMe2Y
+gitlab:
+    # Default path for CODEOWNERS file
+    # Default: CODEOWNERS
+    defaultCodeOwnersPath: .gitlab/CODEOWNERS
+    # Default path for README file
+    # Default: README.md
+    defaultReadmePath: .gitlab/README.md
+    # Entity Kinds to witch the plugin works, if you want to render gitlab
+    # information for one Kind you have to add it in this list.
+    # Default: ['Component']
+    allowedKinds: ['Component', 'Resource']
+    # This parameter controls SSL Certs verification
+    # Default: true
+    proxySecure: false
+    # Activate Oauth/OIDC
+    # Default: false
+    useOAuth: false
+# proxy:
+#   '/argocd/api':
+#     target: https://localhost:8080/api/v1
+#     changeOrigin: true
+#     secure: false
+#     headers:
+#       Cookie:
+#         $env: argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJiYWNrc3RhZ2U6YXBpS2V5IiwibmJmIjoxNzA3MTk4ODk2LCJpYXQiOjE3MDcxOTg4OTYsImp0aSI6IjgwYmMwZGExLWI2N2QtNGQwMS05YzNjLTVlYjBmNGI3M2U0MSJ9.BYcmL-HXxeD2FUoRoIDVPRoI0bweWUmu2QK24AjMe2Y
+### Example for how to add a proxy endpoint for the frontend.
+### A typical reason to do this is to handle HTTPS and CORS for internal services.
+# endpoints:
+#   '/test':
+#     target: 'https://example.com'
+#     changeOrigin: true
+
+# Reference documentation http://backstage.io/docs/features/techdocs/configuration
+# Note: After experimenting with basic setup, use CI/CD to generate docs
+# and an external cloud storage when deploying TechDocs for production use-case.
+# https://backstage.io/docs/features/techdocs/how-to-guides#how-to-migrate-from-techdocs-basic-to-recommended-deployment-approach
+techdocs:
+  builder: 'local' # Alternatives - 'external'
+  generator:
+    runIn: 'docker' # Alternatives - 'local'
+  publisher:
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+
+auth:
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  session:
+    secret: sessionSecret
+  providers:
+    example:
+      development:
+        metadataUrl: http://15.164.153.224:8080/realms/dev/.well-known/openid-configuration
+        clientId: testClient
+        clientSecret: 4OLPoOZAKmTXL8yjBurgMpvCekiikOPj
+    github:
+      development:
+        clientId: 3b5144b160bcbce33741
+        clientSecret: 3c01ec798999e632b58109b29bc694e259cb9b75
+        signIn:
+          resolvers:
+            # typically you would pick one of these
+            - resolver: emailMatchingUserEntityProfileEmail
+            - resolver: emailLocalPartMatchingUserEntityName
+            - resolver: usernameMatchingUserEntityName
+    gitlab:
+      development:
+        clientId: 6009cd8585185d512b02fb72dd561b252043ef98ecfcd1af6983b72de4c2b873
+        clientSecret: gloas-9c6e7b0208604487ea253d5e801068bc2a331eeaec2680344de3e3ac407c7730
+
+scaffolder:
+  # see https://backstage.io/docs/features/software-templates/configuration for software template options
+
+catalog:
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [Component, System, API, Resource, Location]
+  locations:
+    # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    - type: file
+      target: ../../examples/entities.yaml
+
+    # Local example template
+    - type: file
+      target: ../../examples/template/template.yaml
+      rules:
+        - allow: [Template]
+
+    # Local example organizational data
+    - type: file
+      target: ../../examples/org.yaml
+      rules:
+        - allow: [User, Group]
+
+    - type: url
+      target: https://saas-git.duckdns.org:6060/root/backstage_catalog/-/blob/main/template.yaml
+      rules:
+        - allow: [Template]
+
+    - type: url
+      target: https://saas-git.duckdns.org:6060/root/edittemplate/-/blob/main/template.yaml
+      rules:
+        - allow: [Template]
+    - type: url
+      target: https://saas-git.duckdns.org:6060/root/template-test/-/blob/master/template.yaml
+      rules:
+        - allow: [Template]
+    ## Uncomment these lines to add more example data
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+
+    ## Uncomment these lines to add an example org
+    # - type: url
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
+    #   rules:
+    #     - allow: [User, Group]
