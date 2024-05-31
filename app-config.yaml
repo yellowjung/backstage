@@ -73,8 +73,8 @@ integrations:
       apiBaseUrl: https://saas-git.duckdns.org:6060/api/v4
 
   argocd:
-    - host: https://localhost:8080/api/v1
-      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJiYWNrc3RhZ2U6YXBpS2V5IiwibmJmIjoxNzA3MTk4ODk2LCJpYXQiOjE3MDcxOTg4OTYsImp0aSI6IjgwYmMwZGExLWI2N2QtNGQwMS05YzNjLTVlYjBmNGI3M2U0MSJ9.BYcmL-HXxeD2FUoRoIDVPRoI0bweWUmu2QK24AjMe2Y
+    - host: https://saas-argo.duckdns.org:30711/api/v1
+      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws
 gitlab:
     # Default path for CODEOWNERS file
     # Default: CODEOWNERS
@@ -92,14 +92,16 @@ gitlab:
     # Activate Oauth/OIDC
     # Default: false
     useOAuth: false
-# proxy:
-#   '/argocd/api':
-#     target: https://localhost:8080/api/v1
-#     changeOrigin: true
-#     secure: false
-#     headers:
-#       Cookie:
-#         $env: argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJiYWNrc3RhZ2U6YXBpS2V5IiwibmJmIjoxNzA3MTk4ODk2LCJpYXQiOjE3MDcxOTg4OTYsImp0aSI6IjgwYmMwZGExLWI2N2QtNGQwMS05YzNjLTVlYjBmNGI3M2U0MSJ9.BYcmL-HXxeD2FUoRoIDVPRoI0bweWUmu2QK24AjMe2Y
+proxy:
+  '/argocd/api':
+    target: https://saas-argo.duckdns.org:30711/api/v1
+    changeOrigin: true
+    secure: false
+    headers:
+      Cookie: "argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws"
+
+argocd:
+  baseUrl: https://saas-argo.duckdns.org:30711
 ### Example for how to add a proxy endpoint for the frontend.
 ### A typical reason to do this is to handle HTTPS and CORS for internal services.
 # endpoints:
