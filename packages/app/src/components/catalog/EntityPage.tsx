@@ -76,6 +76,11 @@ import {
   EntityGitlabReleasesCard,
 } from '@immobiliarelabs/backstage-plugin-gitlab';
 
+import {
+  HarborPage,
+  isHarborAvailable,
+} from '@bestsellerit/backstage-plugin-harbor'
+
 import { EntitySonarQubeCard } from '@backstage-community/plugin-sonarqube';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 
@@ -203,6 +208,13 @@ const overviewContent = (
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
+    {/* <EntitySwitch>
+      <EntitySwitch.Case if={isHarborAvailable}>
+        <Grid item md={12}>
+          <HarborWidget />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch> */}
   </Grid>
 );
 
@@ -249,6 +261,10 @@ const serviceEntityPage = (
       <EntityGitlabContent />
     </EntityLayout.Route>
     
+    <EntityLayout.Route path="/harbor" title="Harbor" if={isHarborAvailable}>
+      <HarborPage />
+    </EntityLayout.Route>
+
   </EntityLayout>
 );
 
@@ -280,6 +296,9 @@ const websiteEntityPage = (
     {/* Place the following section where you want the tab to appear */}
     <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
       <EntityGitlabContent />
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/harbor" title="Harbor" if={isHarborAvailable}>
+      <HarborPage />
     </EntityLayout.Route>
   </EntityLayout>
 );

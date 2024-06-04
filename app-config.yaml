@@ -97,6 +97,14 @@ sonarqube:
     - name: default
       baseUrl: http://34.123.37.49:30720
       apiKey: squ_e468f6cd3db24162fdfbc598c59925d35b554493
+argocd:
+  baseUrl: https://saas-argo.duckdns.org:30711
+
+harbor:
+  baseUrl: https://private-poc.duckdns.org
+  username: admin
+  password: 1q2w3e4r!!
+
 proxy:
   '/argocd/api':
     target: https://saas-argo.duckdns.org:30711/api/v1
@@ -104,8 +112,7 @@ proxy:
     secure: false
     headers:
       Cookie: "argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws"
-argocd:
-  baseUrl: https://saas-argo.duckdns.org:30711
+
 ### Example for how to add a proxy endpoint for the frontend.
 ### A typical reason to do this is to handle HTTPS and CORS for internal services.
 # endpoints:

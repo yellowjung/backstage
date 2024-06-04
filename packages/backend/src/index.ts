@@ -34,6 +34,7 @@ import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 import gitlab from './plugins/gitlab';
 import sonarqube from './plugins/sonarqube';
 import kubernetes from './plugins/kubernetes';
+import harbor from './plugins/harbor';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -91,7 +92,8 @@ async function main() {
   const appEnv = useHotMemoize(module, () => createEnv('app'));
   const sonarqubeEnv = useHotMemoize(module, () => createEnv('sonarqube'));
   const kubernetesEnv = useHotMemoize(module, () => createEnv('kubernetes'));
-
+  const harborEnv = useHotMemoize(module, () => createEnv('harbor'));
+  
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
@@ -102,6 +104,8 @@ async function main() {
   apiRouter.use('/gitlab', await gitlab(gitlabEnv));
   apiRouter.use('/sonarqube', await sonarqube(sonarqubeEnv));
   apiRouter.use('/kubernetes', await kubernetes(kubernetesEnv));
+  apiRouter.use('/harbor', await harbor(harborEnv));
+
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
 
