@@ -104,7 +104,6 @@ proxy:
     secure: false
     headers:
       Cookie: "argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws"
-
 argocd:
   baseUrl: https://saas-argo.duckdns.org:30711
 ### Example for how to add a proxy endpoint for the frontend.

@@ -77,6 +77,8 @@ import {
 } from '@immobiliarelabs/backstage-plugin-gitlab';
 
 import { EntitySonarQubeCard } from '@backstage-community/plugin-sonarqube';
+import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
+
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -224,7 +226,9 @@ const serviceEntityPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
-
+    <EntityLayout.Route path="/kubernetes" title="Kubernetes">
+      <EntityKubernetesContent refreshIntervalMs={30000} />
+    </EntityLayout.Route>
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
