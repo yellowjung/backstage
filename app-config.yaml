@@ -92,6 +92,11 @@ gitlab:
     # Activate Oauth/OIDC
     # Default: false
     useOAuth: false
+sonarqube:
+  instances:
+    - name: default
+      baseUrl: http://34.123.37.49:30720
+      apiKey: squ_e468f6cd3db24162fdfbc598c59925d35b554493
 proxy:
   '/argocd/api':
     target: https://saas-argo.duckdns.org:30711/api/v1
@@ -175,13 +180,12 @@ catalog:
       target: https://saas-git.duckdns.org:6060/root/backstage_catalog/-/blob/main/template.yaml
       rules:
         - allow: [Template]
-
     - type: url
-      target: https://saas-git.duckdns.org:6060/root/edittemplate/-/blob/main/template.yaml
+      target: https://github.com/yellowjung/golden_path/blob/main/0.config-server/template.yaml
       rules:
         - allow: [Template]
     - type: url
-      target: https://saas-git.duckdns.org:6060/root/template-test/-/blob/master/template.yaml
+      target: https://github.com/yellowjung/golden_path/blob/main/2.%20application/template.yaml
       rules:
         - allow: [Template]
     ## Uncomment these lines to add more example data

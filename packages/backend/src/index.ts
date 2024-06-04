@@ -32,6 +32,7 @@ import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
 import gitlab from './plugins/gitlab';
+import sonarqube from './plugins/sonarqube';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -87,6 +88,7 @@ async function main() {
   const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
   const searchEnv = useHotMemoize(module, () => createEnv('search'));
   const appEnv = useHotMemoize(module, () => createEnv('app'));
+  const sonarqubeEnv = useHotMemoize(module, () => createEnv('sonarqube'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -96,7 +98,7 @@ async function main() {
   apiRouter.use('/proxy', await proxy(proxyEnv));
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/gitlab', await gitlab(gitlabEnv));
-
+  apiRouter.use('/sonarqube', await sonarqube(sonarqubeEnv));
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
 
