@@ -83,6 +83,7 @@ import {
 
 import { EntitySonarQubeCard } from '@backstage-community/plugin-sonarqube';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
+import { EntityKafkaContent } from '@backstage-community/plugin-kafka';
 
 
 const techdocsContent = (
@@ -264,7 +265,9 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/harbor" title="Harbor" if={isHarborAvailable}>
       <HarborPage />
     </EntityLayout.Route>
-
+    <EntityLayout.Route path="/kafka" title="Kafka">
+      <EntityKafkaContent />
+    </EntityLayout.Route>
   </EntityLayout>
 );
 
@@ -299,6 +302,9 @@ const websiteEntityPage = (
     </EntityLayout.Route>
     <EntityLayout.Route path="/harbor" title="Harbor" if={isHarborAvailable}>
       <HarborPage />
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/kafka" title="Kafka">
+      <EntityKafkaContent />
     </EntityLayout.Route>
   </EntityLayout>
 );

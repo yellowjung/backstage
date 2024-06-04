@@ -35,6 +35,8 @@ import gitlab from './plugins/gitlab';
 import sonarqube from './plugins/sonarqube';
 import kubernetes from './plugins/kubernetes';
 import harbor from './plugins/harbor';
+import kafka from './plugins/kafka';
+
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -93,7 +95,8 @@ async function main() {
   const sonarqubeEnv = useHotMemoize(module, () => createEnv('sonarqube'));
   const kubernetesEnv = useHotMemoize(module, () => createEnv('kubernetes'));
   const harborEnv = useHotMemoize(module, () => createEnv('harbor'));
-  
+  const kafkaEnv = useHotMemoize(module, () => createEnv('kafka'));
+
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
@@ -105,6 +108,8 @@ async function main() {
   apiRouter.use('/sonarqube', await sonarqube(sonarqubeEnv));
   apiRouter.use('/kubernetes', await kubernetes(kubernetesEnv));
   apiRouter.use('/harbor', await harbor(harborEnv));
+  apiRouter.use('/kafka', await kafka(kafkaEnv));
+
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());

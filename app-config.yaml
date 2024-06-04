@@ -105,6 +105,13 @@ harbor:
   username: admin
   password: 1q2w3e4r!!
 
+kafka:
+  clientId: backstage
+  clusters:
+    - name: cluster-name
+      brokers:
+        - localhost:9092
+
 proxy:
   '/argocd/api':
     target: https://saas-argo.duckdns.org:30711/api/v1

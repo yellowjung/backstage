@@ -14,6 +14,7 @@
     "lint": "backstage-cli package lint"
   },
   "dependencies": {
+    "@backstage-community/plugin-kafka": "^0.3.35",
     "@backstage-community/plugin-sonarqube": "^0.7.17",
     "@backstage/app-defaults": "^1.4.7",
     "@backstage/catalog-model": "^1.4.3",
