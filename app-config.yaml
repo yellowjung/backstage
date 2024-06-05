@@ -19,6 +19,7 @@ backend:
     # host: 127.0.0.1
   csp:
     connect-src: ["'self'", 'http:', 'https:']
+    frame-src: ["http://localhost:4008"]
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
@@ -111,6 +112,13 @@ kafka:
     - name: cluster-name
       brokers:
         - localhost:9092
+lighthouse:
+  baseUrl: http://localhost:4008
+  schedule:
+    frequency:
+      hours: 12 # Default: 1 day
+    timeout:
+      minutes: 30 # Default: 10 minutes
 
 proxy:
   '/argocd/api':

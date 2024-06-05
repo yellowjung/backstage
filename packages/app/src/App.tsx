@@ -44,6 +44,7 @@ import { githubAuthApiRef } from '@backstage/core-plugin-api';
 import { SignInPage } from '@backstage/core-components';
 import { HomePage } from './components/home/HomePage';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
+import { LighthousePage } from '@backstage-community/plugin-lighthouse';
 
 // const keycloakProvider: SignInProviderConfig = {
 //   id: 'oidc-auth-provider',
@@ -120,6 +121,7 @@ const routes = (
     </Route>
     <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
+    <Route path="/lighthouse" element={<LighthousePage />} />
     <Route
       path="/tech-radar"
       element={<TechRadarPage width={1500} height={800} />}

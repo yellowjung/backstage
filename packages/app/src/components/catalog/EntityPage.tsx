@@ -84,7 +84,10 @@ import {
 import { EntitySonarQubeCard } from '@backstage-community/plugin-sonarqube';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import { EntityKafkaContent } from '@backstage-community/plugin-kafka';
-
+import { EntityLighthouseContent,
+  EntityLastLighthouseAuditCard,
+  isLighthouseAvailable,
+ } from '@backstage-community/plugin-lighthouse';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -209,13 +212,13 @@ const overviewContent = (
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
-    {/* <EntitySwitch>
-      <EntitySwitch.Case if={isHarborAvailable}>
-        <Grid item md={12}>
-          <HarborWidget />
+    <EntitySwitch>
+      <EntitySwitch.Case if={isLighthouseAvailable}>
+        <Grid item md={6}>
+          <EntityLastLighthouseAuditCard />
         </Grid>
       </EntitySwitch.Case>
-    </EntitySwitch> */}
+    </EntitySwitch>
   </Grid>
 );
 
@@ -268,6 +271,9 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/kafka" title="Kafka">
       <EntityKafkaContent />
     </EntityLayout.Route>
+    <EntityLayout.Route path="/lighthouse" title="Lighthouse">
+      <EntityLighthouseContent />
+    </EntityLayout.Route>
   </EntityLayout>
 );
 
@@ -303,8 +309,11 @@ const websiteEntityPage = (
     <EntityLayout.Route path="/harbor" title="Harbor" if={isHarborAvailable}>
       <HarborPage />
     </EntityLayout.Route>
-    <EntityLayout.Route path="/kafka" title="Kafka">
+        <EntityLayout.Route path="/kafka" title="Kafka">
       <EntityKafkaContent />
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/lighthouse" title="Lighthouse">
+      <EntityLighthouseContent />
     </EntityLayout.Route>
   </EntityLayout>
 );
