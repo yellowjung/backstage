@@ -36,7 +36,6 @@ import sonarqube from './plugins/sonarqube';
 import kubernetes from './plugins/kubernetes';
 import harbor from './plugins/harbor';
 import kafka from './plugins/kafka';
-import lighthouse from './plugins/lighthouse';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -96,7 +95,6 @@ async function main() {
   const kubernetesEnv = useHotMemoize(module, () => createEnv('kubernetes'));
   const harborEnv = useHotMemoize(module, () => createEnv('harbor'));
   const kafkaEnv = useHotMemoize(module, () => createEnv('kafka'));
-  const lighthouseEnv = useHotMemoize(module, () => createEnv('lighthouse'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -124,8 +122,6 @@ async function main() {
     console.log(err);
     process.exit(1);
   });
-
-  await lighthouse(lighthouseEnv)
 }
 
 module.hot?.accept();
