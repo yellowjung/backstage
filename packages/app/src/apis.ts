@@ -15,9 +15,14 @@ import {
   SessionApi,
   discoveryApiRef,
   oauthRequestApiRef,
+  fetchApiRef,
+  identityApiRef,
 } from '@backstage/core-plugin-api';
 
 import { OAuth2 } from '@backstage/core-app-api';
+
+import fetch from 'cross-fetch';
+import { ragAiApiRef, RoadieRagAiClient } from '@roadiehq/rag-ai';
 
 export const oidcAuthApiRef: ApiRef<
   OpenIdConnectApi & // The OICD API that will handle authentication
@@ -71,6 +76,23 @@ export const apis: AnyApiFactory[] = [
     api: scmIntegrationsApiRef,
     deps: { configApi: configApiRef },
     factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
+  }),
+  createApiFactory({
+    api: ragAiApiRef,
+    deps: {
+      configApi: configApiRef,
+      discoveryApi: discoveryApiRef,
+      fetchApi: fetchApiRef,
+      identityApi: identityApiRef,
+    },
+    factory: ({ discoveryApi, fetchApi, configApi, identityApi }) => {
+      return new RoadieRagAiClient({
+        discoveryApi,
+        fetchApi,
+        configApi,
+        identityApi,
+      });
+    },
   }),
   ScmAuth.createDefaultApiFactory(),
 ];

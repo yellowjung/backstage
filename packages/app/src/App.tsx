@@ -45,6 +45,7 @@ import { SignInPage } from '@backstage/core-components';
 import { HomePage } from './components/home/HomePage';
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { LighthousePage } from '@backstage-community/plugin-lighthouse';
+import { RagModal } from '@roadiehq/rag-ai';
 
 // const keycloakProvider: SignInProviderConfig = {
 //   id: 'oidc-auth-provider',
@@ -147,6 +148,7 @@ export default app.createRoot(
     <AlertDisplay />
     <OAuthRequestDialog />
     <AppRouter>
+      <RagModal />
       <Root>{routes}</Root>
     </AppRouter>
   </>,

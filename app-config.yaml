@@ -116,6 +116,11 @@ kafka:
 lighthouse:
   baseUrl: http://localhost:4008
 
+ai:
+  embeddings:
+    bedrock:
+      modelName: 'anthropic.claude-instant-v1'
+
 proxy:
   '/argocd/api':
     target: https://saas-argo.duckdns.org:30711/api/v1
