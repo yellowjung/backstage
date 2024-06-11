@@ -21,7 +21,6 @@ import {
 
 import { OAuth2 } from '@backstage/core-app-api';
 
-import fetch from 'cross-fetch';
 import { ragAiApiRef, RoadieRagAiClient } from '@roadiehq/rag-ai';
 
 export const oidcAuthApiRef: ApiRef<

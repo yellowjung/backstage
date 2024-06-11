@@ -116,10 +116,15 @@ kafka:
 lighthouse:
   baseUrl: http://localhost:4008
 
+aws:
+  mainAccount:
+    accessKeyId: AKIAVRUVRGKF2ORPDE6I
+    secretAccessKey: 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
+
 ai:
   embeddings:
     bedrock:
-      modelName: 'anthropic.claude-instant-v1'
+      modelName: 'anthropic.claude-v2:1'
 
 proxy:
   '/argocd/api':
@@ -198,10 +203,10 @@ catalog:
       rules:
         - allow: [User, Group]
 
-    - type: url
-      target: https://saas-git.duckdns.org:6060/root/backstage_catalog/-/blob/main/template.yaml
-      rules:
-        - allow: [Template]
+    # - type: url
+    #   target: https://saas-git.duckdns.org:6060/root/backstage_catalog/-/blob/main/template.yaml
+    #   rules:
+    #     - allow: [Template]
     - type: url
       target: https://github.com/yellowjung/golden_path/blob/main/0.config-server/template.yaml
       rules:
