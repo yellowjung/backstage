@@ -127,8 +127,6 @@ export class RagAiController {
       const embeddingDocs = this.retrievalPipeline
       ? [] : [];
     
-    
-    console.log('what???????????')
     const llmResponse = await this.llmService.query(embeddingDocs, query);
     return res
       .status(200)

@@ -54,6 +54,7 @@ export class LlmService {
       promptEmbeddings,
     )}\n ---\n${this.prompts.suffixPrompt(query)}\nAssistant:`;
     //TODO 해당 부분 변경해야 AI 가능함    
+    console.log('prompt',prompt);
     return await this.model.invoke(prompt);
   }
 }
