@@ -1784,6 +1784,27 @@
     "@aws-sdk/client-ecs" "^3.511.0"
     "@backstage/catalog-model" "^1.4.5"
 
+"@aws/amazon-ecs-plugin-for-backstage@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@aws/amazon-ecs-plugin-for-backstage/-/amazon-ecs-plugin-for-backstage-0.3.2.tgz#434c4268807fa3d65edad020dd28bae4158c881a"
+  integrity sha512-r4Spp5uaB2CV57kKI0ksuLZfcIU5OhdHsMTBszjVEhe1pEQw6C0QedJIRBcMReImhvf1wxcZ/AWREQxslHA3Bg==
+  dependencies:
+    "@aws-sdk/client-ecs" "^3.511.0"
+    "@aws-sdk/util-arn-parser" "^3.495.0"
+    "@aws/amazon-ecs-plugin-for-backstage-common" "^0.2.0"
+    "@aws/aws-core-plugin-for-backstage-common" "^0.4.0"
+    "@aws/aws-core-plugin-for-backstage-react" "^0.4.0"
+    "@backstage/catalog-model" "^1.4.5"
+    "@backstage/core-components" "^0.14.3"
+    "@backstage/core-plugin-api" "^1.9.1"
+    "@backstage/plugin-catalog-react" "^1.11.2"
+    "@backstage/theme" "^0.5.2"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    humanize-duration "^3.31.0"
+    react-use "^17.2.4"
+
 "@aws/aws-codebuild-plugin-for-backstage-backend@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@aws/aws-codebuild-plugin-for-backstage-backend/-/aws-codebuild-plugin-for-backstage-backend-0.4.1.tgz#4494499574a7c306461fda41050d58404e8a80e6"

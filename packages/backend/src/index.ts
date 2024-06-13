@@ -39,6 +39,7 @@ import kafka from './plugins/kafka';
 import ai from './plugins/ai';
 import codebuild from './plugins/codebuild';
 import codepipeline from './plugins/codepipeline';
+import ecs from './plugins/ecs';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -100,9 +101,9 @@ async function main() {
   const kafkaEnv = useHotMemoize(module, () => createEnv('kafka'));
   const aiEnv = useHotMemoize(module, () => createEnv('ai'));
   const codebuildEnv = useHotMemoize(module, () => createEnv('aws-codebuild'));
-  const codepipelineEnv = useHotMemoize(module, () =>
-    createEnv('aws-codepipeline'),
-  );
+  const codepipelineEnv = useHotMemoize(module, () => createEnv('aws-codepipeline'));
+  const ecsEnv = useHotMemoize(module, () => createEnv('amazon-ecs'));
+
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
@@ -118,7 +119,7 @@ async function main() {
   apiRouter.use('/rag-ai', await ai(aiEnv));
   apiRouter.use('/aws-codebuild', await codebuild(codebuildEnv));
   apiRouter.use('/aws-codepipeline', await codepipeline(codepipelineEnv));
-
+  apiRouter.use('/amazon-ecs', await ecs(ecsEnv));
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
 

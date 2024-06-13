@@ -91,6 +91,7 @@ import { EntityLighthouseContent,
 
 import { EntityAwsCodeBuildCard } from '@aws/aws-codebuild-plugin-for-backstage';
 import { EntityAwsCodePipelineCard, EntityAwsCodePipelineExecutionsContent, isAwsCodePipelineAvailable } from '@aws/aws-codepipeline-plugin-for-backstage';
+import {EntityAmazonEcsServicesContent} from '@aws/amazon-ecs-plugin-for-backstage';
 
 
 const techdocsContent = (
@@ -277,7 +278,9 @@ const serviceEntityPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
-
+    < EntityLayout.Route path = "/ecs" title = "Amazon ECS" >
+      <EntityAmazonEcsServicesContent / >
+    </EntityLayout.Route>
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
     </EntityLayout.Route>
@@ -312,7 +315,9 @@ const websiteEntityPage = (
     <EntityLayout.Route path="/pipeline" title="PIPELINE">
       {pipelineContent}
     </EntityLayout.Route>
-
+    < EntityLayout.Route path = "/ecs" title = "Amazon ECS" >
+      <EntityAmazonEcsServicesContent / >
+    </EntityLayout.Route>
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
