@@ -90,6 +90,7 @@ import { EntityLighthouseContent,
  } from '@backstage-community/plugin-lighthouse';
 
 import { EntityAwsCodeBuildCard } from '@aws/aws-codebuild-plugin-for-backstage';
+import { EntityAwsCodePipelineCard, EntityAwsCodePipelineExecutionsContent, isAwsCodePipelineAvailable } from '@aws/aws-codepipeline-plugin-for-backstage';
 
 
 const techdocsContent = (
@@ -134,6 +135,14 @@ const cicdContent = (
   </EntitySwitch>
 );
 
+const pipelineContent = (
+  <EntitySwitch>
+  <EntitySwitch.Case if= {isAwsCodePipelineAvailable} >
+    <EntityAwsCodePipelineExecutionsContent / >
+  </EntitySwitch.Case>
+  </EntitySwitch>
+);
+
 const entityWarningContent = (
   <>
     <EntitySwitch>
@@ -173,6 +182,9 @@ const overviewContent = (
     </Grid>
     <Grid item md={6}>
       <EntityAwsCodeBuildCard />
+    </Grid>
+    <Grid item md={6}>
+      <EntityAwsCodePipelineCard />
     </Grid>
     <Grid item md={6}>
       <EntitySonarQubeCard variant="gridItem" />
@@ -238,6 +250,10 @@ const serviceEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
+    <EntityLayout.Route path="/pipeline" title="PIPELINE">
+      {pipelineContent}
+    </EntityLayout.Route>
+
     <EntityLayout.Route path="/api" title="API">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
@@ -291,6 +307,10 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
       {cicdContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/pipeline" title="PIPELINE">
+      {pipelineContent}
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/dependencies" title="Dependencies">

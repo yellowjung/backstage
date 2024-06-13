@@ -561,6 +561,55 @@
     "@smithy/util-utf8" "^3.0.0"
     tslib "^2.6.2"
 
+"@aws-sdk/client-ecs@^3.511.0":
+  version "3.596.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-ecs/-/client-ecs-3.596.0.tgz#9207f5a5b9446309d10c97e32f67e0f6f55844a4"
+  integrity sha512-iSEjqyViOionESw5IWSWs+WnWq0lumOTlnduNrYZ6yjid2EFj0r4epLRQ3/mpgwu4G1EB1PFVdmnivDroT9QRw==
+  dependencies:
+    "@aws-crypto/sha256-browser" "3.0.0"
+    "@aws-crypto/sha256-js" "3.0.0"
+    "@aws-sdk/client-sso-oidc" "3.596.0"
+    "@aws-sdk/client-sts" "3.596.0"
+    "@aws-sdk/core" "3.592.0"
+    "@aws-sdk/credential-provider-node" "3.596.0"
+    "@aws-sdk/middleware-host-header" "3.577.0"
+    "@aws-sdk/middleware-logger" "3.577.0"
+    "@aws-sdk/middleware-recursion-detection" "3.577.0"
+    "@aws-sdk/middleware-user-agent" "3.587.0"
+    "@aws-sdk/region-config-resolver" "3.587.0"
+    "@aws-sdk/types" "3.577.0"
+    "@aws-sdk/util-endpoints" "3.587.0"
+    "@aws-sdk/util-user-agent-browser" "3.577.0"
+    "@aws-sdk/util-user-agent-node" "3.587.0"
+    "@smithy/config-resolver" "^3.0.1"
+    "@smithy/core" "^2.2.0"
+    "@smithy/fetch-http-handler" "^3.0.1"
+    "@smithy/hash-node" "^3.0.0"
+    "@smithy/invalid-dependency" "^3.0.0"
+    "@smithy/middleware-content-length" "^3.0.0"
+    "@smithy/middleware-endpoint" "^3.0.1"
+    "@smithy/middleware-retry" "^3.0.3"
+    "@smithy/middleware-serde" "^3.0.0"
+    "@smithy/middleware-stack" "^3.0.0"
+    "@smithy/node-config-provider" "^3.1.0"
+    "@smithy/node-http-handler" "^3.0.0"
+    "@smithy/protocol-http" "^4.0.0"
+    "@smithy/smithy-client" "^3.1.1"
+    "@smithy/types" "^3.0.0"
+    "@smithy/url-parser" "^3.0.0"
+    "@smithy/util-base64" "^3.0.0"
+    "@smithy/util-body-length-browser" "^3.0.0"
+    "@smithy/util-body-length-node" "^3.0.0"
+    "@smithy/util-defaults-mode-browser" "^3.0.3"
+    "@smithy/util-defaults-mode-node" "^3.0.3"
+    "@smithy/util-endpoints" "^2.0.1"
+    "@smithy/util-middleware" "^3.0.0"
+    "@smithy/util-retry" "^3.0.0"
+    "@smithy/util-utf8" "^3.0.0"
+    "@smithy/util-waiter" "^3.0.0"
+    tslib "^2.6.2"
+    uuid "^9.0.1"
+
 "@aws-sdk/client-resource-explorer-2@^3.511.0":
   version "3.592.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-resource-explorer-2/-/client-resource-explorer-2-3.592.0.tgz#c6cc54c2a898c13a2dcaaf0c90aa1f8c48d10478"
@@ -1624,7 +1673,7 @@
     "@smithy/types" "^3.0.0"
     tslib "^2.6.2"
 
-"@aws-sdk/util-arn-parser@3.568.0", "@aws-sdk/util-arn-parser@^3.310.0", "@aws-sdk/util-arn-parser@^3.495.0":
+"@aws-sdk/util-arn-parser@3.568.0", "@aws-sdk/util-arn-parser@^3.310.0", "@aws-sdk/util-arn-parser@^3.495.0", "@aws-sdk/util-arn-parser@^3.568.0":
   version "3.568.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/util-arn-parser/-/util-arn-parser-3.568.0.tgz#6a19a8c6bbaa520b6be1c278b2b8c17875b91527"
   integrity sha512-XUKJWWo+KOB7fbnPP0+g/o5Ulku/X53t7i/h+sPHr5xxYTJJ9CYnbToo95mzxe7xWvkLrsNtJ8L+MnNn9INs2w==
@@ -1702,6 +1751,38 @@
   dependencies:
     "@smithy/types" "^3.0.0"
     tslib "^2.6.2"
+
+"@aws/amazon-ecs-plugin-for-backstage-backend@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@aws/amazon-ecs-plugin-for-backstage-backend/-/amazon-ecs-plugin-for-backstage-backend-0.3.3.tgz#8903d1bd423bb419ec2ba8879889e672f0d5a2f4"
+  integrity sha512-uROEknG6eurlAoQzJr3m+GfNVZR6pZeProMaDQRnPLkW/qsWjx5zix3BVVG4nlB+iTDWwfRHfJP6J2i6NNdbqQ==
+  dependencies:
+    "@aws-sdk/client-ecs" "^3.511.0"
+    "@aws-sdk/middleware-sdk-sts" "^3.523.0"
+    "@aws-sdk/util-arn-parser" "^3.495.0"
+    "@aws/amazon-ecs-plugin-for-backstage-common" "^0.2.0"
+    "@aws/aws-core-plugin-for-backstage-common" "^0.4.0"
+    "@backstage/backend-common" "^0.21.6"
+    "@backstage/backend-plugin-api" "^0.6.16"
+    "@backstage/catalog-client" "^1.6.3"
+    "@backstage/catalog-model" "^1.4.5"
+    "@backstage/config" "^1.2.0"
+    "@backstage/integration-aws-node" "^0.1.12"
+    "@backstage/plugin-catalog-node" "^1.11.0"
+    "@types/express" "*"
+    express "^4.17.1"
+    express-promise-router "^4.1.0"
+    node-fetch "^2.6.7"
+    winston "^3.2.1"
+    yn "^4.0.0"
+
+"@aws/amazon-ecs-plugin-for-backstage-common@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@aws/amazon-ecs-plugin-for-backstage-common/-/amazon-ecs-plugin-for-backstage-common-0.2.0.tgz#82dab410b89712df8b0c65166e6c3724cf521bb3"
+  integrity sha512-/yRIrK2Ug/NN9lArqvnZLItZF8Ia+O2ZeWj9Netbslr5HYwtjODg4Tem19yEQ9PNRiJShDHCz4LiH0Zv6MR95A==
+  dependencies:
+    "@aws-sdk/client-ecs" "^3.511.0"
+    "@backstage/catalog-model" "^1.4.5"
 
 "@aws/aws-codebuild-plugin-for-backstage-backend@^0.4.1":
   version "0.4.1"
@@ -1786,6 +1867,27 @@
   dependencies:
     "@aws-sdk/client-codepipeline" "^3.511.0"
     "@backstage/catalog-model" "^1.4.5"
+
+"@aws/aws-codepipeline-plugin-for-backstage@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@aws/aws-codepipeline-plugin-for-backstage/-/aws-codepipeline-plugin-for-backstage-0.5.0.tgz#5bdc308044711493a39e88439111a152c7cc99f5"
+  integrity sha512-7psRhB29EhSOjCf3NOAWe338O06cf2Pzn5ekxvSK+VB4cDRvvkltrZeityjnufSr1LNn3OD69G/t2VpiZN8ciw==
+  dependencies:
+    "@aws-sdk/client-codepipeline" "^3.511.0"
+    "@aws-sdk/util-arn-parser" "^3.568.0"
+    "@aws/aws-codepipeline-plugin-for-backstage-common" "^0.3.0"
+    "@aws/aws-core-plugin-for-backstage-common" "^0.4.0"
+    "@aws/aws-core-plugin-for-backstage-react" "^0.4.0"
+    "@backstage/catalog-model" "^1.4.5"
+    "@backstage/core-components" "^0.14.3"
+    "@backstage/core-plugin-api" "^1.9.1"
+    "@backstage/plugin-catalog-react" "^1.11.2"
+    "@backstage/theme" "^0.5.2"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    humanize-duration "^3.31.0"
+    react-use "^17.2.4"
 
 "@aws/aws-core-plugin-for-backstage-common@^0.4.0":
   version "0.4.0"
@@ -12018,6 +12120,7 @@ apg-lite@^1.0.3:
   version "0.0.0"
   dependencies:
     "@aws/aws-codebuild-plugin-for-backstage" "^0.5.0"
+    "@aws/aws-codepipeline-plugin-for-backstage" "^0.5.0"
     "@backstage-community/plugin-kafka" "^0.3.35"
     "@backstage-community/plugin-lighthouse" "^0.4.20"
     "@backstage-community/plugin-sonarqube" "^0.7.17"

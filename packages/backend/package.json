@@ -16,6 +16,7 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
+    "@aws/amazon-ecs-plugin-for-backstage-backend": "^0.3.3",
     "@aws/aws-codebuild-plugin-for-backstage-backend": "^0.4.1",
     "@aws/aws-codepipeline-plugin-for-backstage-backend": "^0.4.1",
     "@backstage-community/plugin-kafka-backend": "^0.3.16",
