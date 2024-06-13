@@ -89,6 +89,9 @@ import { EntityLighthouseContent,
   isLighthouseAvailable,
  } from '@backstage-community/plugin-lighthouse';
 
+import { EntityAwsCodeBuildCard } from '@aws/aws-codebuild-plugin-for-backstage';
+
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -167,6 +170,9 @@ const overviewContent = (
     </Grid>
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
+    </Grid>
+    <Grid item md={6}>
+      <EntityAwsCodeBuildCard />
     </Grid>
     <Grid item md={6}>
       <EntitySonarQubeCard variant="gridItem" />

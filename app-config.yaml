@@ -215,6 +215,10 @@ catalog:
       target: https://github.com/yellowjung/golden_path/blob/main/2.%20application/template.yaml
       rules:
         - allow: [Template]
+    - type: url
+      target: https://github.com/yellowjung/golden_path/blob/main/github_version/0.config-server/template.yaml
+      rules:
+        - allow: [Template]
     ## Uncomment these lines to add more example data
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml

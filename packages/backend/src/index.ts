@@ -37,6 +37,7 @@ import kubernetes from './plugins/kubernetes';
 import harbor from './plugins/harbor';
 import kafka from './plugins/kafka';
 import ai from './plugins/ai';
+import codebuild from './plugins/codebuild';
 
 function makeCreateEnv(config: Config) {
   const root = getRootLogger();
@@ -97,6 +98,7 @@ async function main() {
   const harborEnv = useHotMemoize(module, () => createEnv('harbor'));
   const kafkaEnv = useHotMemoize(module, () => createEnv('kafka'));
   const aiEnv = useHotMemoize(module, () => createEnv('ai'));
+  const codebuildEnv = useHotMemoize(module, () => createEnv('aws-codebuild'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
@@ -111,7 +113,8 @@ async function main() {
   apiRouter.use('/harbor', await harbor(harborEnv));
   apiRouter.use('/kafka', await kafka(kafkaEnv));
   apiRouter.use('/rag-ai', await ai(aiEnv));
-
+  apiRouter.use('/aws-codebuild', await codebuild(codebuildEnv));
+  
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
 

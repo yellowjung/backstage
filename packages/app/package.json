@@ -14,6 +14,7 @@
     "lint": "backstage-cli package lint"
   },
   "dependencies": {
+    "@aws/aws-codebuild-plugin-for-backstage": "^0.5.0",
     "@backstage-community/plugin-kafka": "^0.3.35",
     "@backstage-community/plugin-lighthouse": "^0.4.20",
     "@backstage-community/plugin-sonarqube": "^0.7.17",
