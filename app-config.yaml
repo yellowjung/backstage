@@ -63,7 +63,7 @@ proxy:
   #     target: 'https://example.com'
   #     changeOrigin: true
   '/argocd/api':
-    target: https://<your-argocd-instance>/api/v1/
+    target: ${ARGOCD_URL}
     changeOrigin: true
     # only if your argocd api has self-signed cert
     secure: false
