@@ -19,8 +19,6 @@ backend:
     # host: 127.0.0.1
   csp:
     connect-src: ["'self'", 'http:', 'https:']
-    frame-src: 
-      - http://localhost:4008
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
@@ -29,117 +27,29 @@ backend:
     credentials: true
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
-  reading:
-    allow:
-      - host: saas-git.duckdns.org:6060
-        skipSslVerification: true
-
   database:
-    #   client: better-sqlite3
-    #   connection: ':memory:'
-    client: pg
-    connection:
-      host: 127.0.0.1
-      # host: 172.19.152.150
-      port: 55432
-      user: backstage
-      password:
-        secret
-        # https://node-postgres.com/features/ssl
-      # ssl:
-      #   host is only needed if the connection name differs from the certificate name.
-      #   This is for example the case with CloudSQL.
-      #   host: servername in the certificate
-      #   ca:
-      #     $file: <file-path>/server.pem
-      #   key:
-      #     $file: <file-path>/client.key
-      #   cert:
-      #     $file: <file-path>/client-cert.pem
+    client: better-sqlite3
+    connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
   github:
     - host: github.com
       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-      # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
-      token: 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
-      #token: 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
+      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
+      token: ${GITHUB_TOKEN}
     ### Example for how to add your GitHub Enterprise instance using the API:
     # - host: ghe.example.net
     #   apiBaseUrl: https://ghe.example.net/api/v3
     #   token: ${GHE_TOKEN}
-  gitlab:
-    - host: saas-git.duckdns.org:6060
-      token: glpat-eZpgH32CHysiNG25c7kn
-      apiBaseUrl: https://saas-git.duckdns.org:6060/api/v4
-
-  argocd:
-    - host: https://saas-argo.duckdns.org:30711/api/v1
-      token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws
-gitlab:
-    # Default path for CODEOWNERS file
-    # Default: CODEOWNERS
-    defaultCodeOwnersPath: .gitlab/CODEOWNERS
-    # Default path for README file
-    # Default: README.md
-    defaultReadmePath: .gitlab/README.md
-    # Entity Kinds to witch the plugin works, if you want to render gitlab
-    # information for one Kind you have to add it in this list.
-    # Default: ['Component']
-    allowedKinds: ['Component', 'Resource']
-    # This parameter controls SSL Certs verification
-    # Default: true
-    proxySecure: false
-    # Activate Oauth/OIDC
-    # Default: false
-    useOAuth: false
-sonarqube:
-  instances:
-    - name: default
-      baseUrl: http://34.123.37.49:30720
-      apiKey: squ_e468f6cd3db24162fdfbc598c59925d35b554493
-argocd:
-  baseUrl: https://saas-argo.duckdns.org:30711
-
-harbor:
-  baseUrl: https://private-poc.duckdns.org
-  username: admin
-  password: 1q2w3e4r!!
-
-kafka:
-  clientId: backstage
-  clusters:
-    - name: cluster-name
-      brokers:
-        - localhost:9092
-lighthouse:
-  baseUrl: http://localhost:4008
-
-aws:
-  mainAccount:
-    accessKeyId: AKIAVRUVRGKF2ORPDE6I
-    secretAccessKey: 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
-
-ai:
-  embeddings:
-    bedrock:
-      modelName: 'anthropic.claude-v2:1'
 
 proxy:
-  '/argocd/api':
-    target: https://saas-argo.duckdns.org:30711/api/v1
-    changeOrigin: true
-    secure: false
-    headers:
-      Cookie: "argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws"
-
-### Example for how to add a proxy endpoint for the frontend.
-### A typical reason to do this is to handle HTTPS and CORS for internal services.
-# endpoints:
-#   '/test':
-#     target: 'https://example.com'
-#     changeOrigin: true
+  ### Example for how to add a proxy endpoint for the frontend.
+  ### A typical reason to do this is to handle HTTPS and CORS for internal services.
+  # endpoints:
+  #   '/test':
+  #     target: 'https://example.com'
+  #     changeOrigin: true
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -154,28 +64,9 @@ techdocs:
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
-  session:
-    secret: sessionSecret
   providers:
-    example:
-      development:
-        metadataUrl: http://15.164.153.224:8080/realms/dev/.well-known/openid-configuration
-        clientId: testClient
-        clientSecret: 4OLPoOZAKmTXL8yjBurgMpvCekiikOPj
-    github:
-      development:
-        clientId: 3b5144b160bcbce33741
-        clientSecret: 3c01ec798999e632b58109b29bc694e259cb9b75
-        signIn:
-          resolvers:
-            # typically you would pick one of these
-            - resolver: emailMatchingUserEntityProfileEmail
-            - resolver: emailLocalPartMatchingUserEntityName
-            - resolver: usernameMatchingUserEntityName
-    gitlab:
-      development:
-        clientId: 6009cd8585185d512b02fb72dd561b252043ef98ecfcd1af6983b72de4c2b873
-        clientSecret: gloas-9c6e7b0208604487ea253d5e801068bc2a331eeaec2680344de3e3ac407c7730
+    # See https://backstage.io/docs/auth/guest/provider
+    guest: {}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -203,22 +94,6 @@ catalog:
       rules:
         - allow: [User, Group]
 
-    # - type: url
-    #   target: https://saas-git.duckdns.org:6060/root/backstage_catalog/-/blob/main/template.yaml
-    #   rules:
-    #     - allow: [Template]
-    - type: url
-      target: https://github.com/yellowjung/golden_path/blob/main/0.config-server/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/yellowjung/golden_path/blob/main/2.%20application/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/yellowjung/golden_path/blob/main/github_version/0.config-server/template.yaml
-      rules:
-        - allow: [Template]
     ## Uncomment these lines to add more example data
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml

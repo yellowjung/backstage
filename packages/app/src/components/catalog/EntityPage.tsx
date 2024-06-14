@@ -29,10 +29,6 @@ import {
   EntityRelationWarning,
 } from '@backstage/plugin-catalog';
 import {
-  isGithubActionsAvailable,
-  EntityGithubActionsContent,
-} from '@backstage/plugin-github-actions';
-import {
   EntityUserProfileCard,
   EntityGroupProfileCard,
   EntityMembersListCard,
@@ -58,42 +54,6 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 
-import {
-  EntityArgoCDOverviewCard,
-  EntityArgoCDHistoryCard,
-  isArgocdAvailable,
-} from '@roadiehq/backstage-plugin-argo-cd';
-
-import {
-  isGitlabAvailable,
-  EntityGitlabContent,
-  EntityGitlabLanguageCard,
-  EntityGitlabMergeRequestsTable,
-  EntityGitlabMergeRequestStatsCard,
-  EntityGitlabPeopleCard,
-  EntityGitlabPipelinesTable,
-  EntityGitlabReadmeCard,
-  EntityGitlabReleasesCard,
-} from '@immobiliarelabs/backstage-plugin-gitlab';
-
-import {
-  HarborPage,
-  isHarborAvailable,
-} from '@bestsellerit/backstage-plugin-harbor'
-
-import { EntitySonarQubeCard } from '@backstage-community/plugin-sonarqube';
-import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
-import { EntityKafkaContent } from '@backstage-community/plugin-kafka';
-import { EntityLighthouseContent,
-  EntityLastLighthouseAuditCard,
-  isLighthouseAvailable,
- } from '@backstage-community/plugin-lighthouse';
-
-import { EntityAwsCodeBuildCard } from '@aws/aws-codebuild-plugin-for-backstage';
-import { EntityAwsCodePipelineCard, EntityAwsCodePipelineExecutionsContent, isAwsCodePipelineAvailable } from '@aws/aws-codepipeline-plugin-for-backstage';
-import {EntityAmazonEcsServicesContent} from '@aws/amazon-ecs-plugin-for-backstage';
-
-
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -106,17 +66,14 @@ const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
   // You can for example enforce that all components of type 'service' should use GitHubActions
   <EntitySwitch>
-    <EntitySwitch.Case if={isGithubActionsAvailable}>
-      <EntityGithubActionsContent />
-    </EntitySwitch.Case>
-    <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
-        <Grid item sm={4}>
-          <EntityArgoCDOverviewCard />
-        </Grid>
-        <Grid item sm={6}>
-          <EntityArgoCDHistoryCard />
-        </Grid>
+    {/*
+      Here you can add support for different CI/CD services, for example
+      using @backstage-community/plugin-github-actions as follows:
+      <EntitySwitch.Case if={isGithubActionsAvailable}>
+        <EntityGithubActionsContent />
       </EntitySwitch.Case>
+     */}
+
     <EntitySwitch.Case>
       <EmptyState
         title="No CI/CD available for this entity"
@@ -133,14 +90,6 @@ const cicdContent = (
         }
       />
     </EntitySwitch.Case>
-  </EntitySwitch>
-);
-
-const pipelineContent = (
-  <EntitySwitch>
-  <EntitySwitch.Case if= {isAwsCodePipelineAvailable} >
-    <EntityAwsCodePipelineExecutionsContent / >
-  </EntitySwitch.Case>
   </EntitySwitch>
 );
 
@@ -181,63 +130,13 @@ const overviewContent = (
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
-    <Grid item md={6}>
-      <EntityAwsCodeBuildCard />
-    </Grid>
-    <Grid item md={6}>
-      <EntityAwsCodePipelineCard />
-    </Grid>
-    <Grid item md={6}>
-      <EntitySonarQubeCard variant="gridItem" />
-    </Grid>
+
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
     </Grid>
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
-    <EntitySwitch>
-      <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
-        <Grid item sm={4}>
-          <EntityArgoCDOverviewCard />
-        </Grid>
-        <Grid item sm={6}>
-          <EntityArgoCDHistoryCard />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
-    <EntitySwitch>
-      <EntitySwitch.Case if={isGitlabAvailable}>
-        <Grid item md={12}>
-          <EntityGitlabReadmeCard />
-        </Grid>
-        <Grid item sm={12} md={3} lg={3}>
-          <EntityGitlabPeopleCard />
-        </Grid>
-        <Grid item sm={12} md={3} lg={3}>
-          <EntityGitlabLanguageCard />
-        </Grid>
-        <Grid item sm={12} md={3} lg={3}>
-          <EntityGitlabMergeRequestStatsCard />
-        </Grid>
-        <Grid item sm={12} md={3} lg={3}>
-          <EntityGitlabReleasesCard />
-        </Grid>
-        <Grid item md={12}>
-          <EntityGitlabPipelinesTable />
-        </Grid>
-        <Grid item md={12}>
-          <EntityGitlabMergeRequestsTable />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
-    <EntitySwitch>
-      <EntitySwitch.Case if={isLighthouseAvailable}>
-        <Grid item md={6}>
-          <EntityLastLighthouseAuditCard />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
   </Grid>
 );
 
@@ -251,10 +150,6 @@ const serviceEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/pipeline" title="PIPELINE">
-      {pipelineContent}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/api" title="API">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
@@ -265,9 +160,7 @@ const serviceEntityPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
-    <EntityLayout.Route path="/kubernetes" title="Kubernetes">
-      <EntityKubernetesContent refreshIntervalMs={30000} />
-    </EntityLayout.Route>
+
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
@@ -278,26 +171,9 @@ const serviceEntityPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
-    < EntityLayout.Route path = "/ecs" title = "Amazon ECS" >
-      <EntityAmazonEcsServicesContent / >
-    </EntityLayout.Route>
+
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
-    </EntityLayout.Route>
-    
-    {/* Place the following section where you want the tab to appear */}
-    <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
-      <EntityGitlabContent />
-    </EntityLayout.Route>
-    
-    <EntityLayout.Route path="/harbor" title="Harbor" if={isHarborAvailable}>
-      <HarborPage />
-    </EntityLayout.Route>
-    <EntityLayout.Route path="/kafka" title="Kafka">
-      <EntityKafkaContent />
-    </EntityLayout.Route>
-    <EntityLayout.Route path="/lighthouse" title="Lighthouse">
-      <EntityLighthouseContent />
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -312,12 +188,6 @@ const websiteEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/pipeline" title="PIPELINE">
-      {pipelineContent}
-    </EntityLayout.Route>
-    < EntityLayout.Route path = "/ecs" title = "Amazon ECS" >
-      <EntityAmazonEcsServicesContent / >
-    </EntityLayout.Route>
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
@@ -331,20 +201,6 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       {techdocsContent}
-    </EntityLayout.Route>
-
-    {/* Place the following section where you want the tab to appear */}
-    <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
-      <EntityGitlabContent />
-    </EntityLayout.Route>
-    <EntityLayout.Route path="/harbor" title="Harbor" if={isHarborAvailable}>
-      <HarborPage />
-    </EntityLayout.Route>
-        <EntityLayout.Route path="/kafka" title="Kafka">
-      <EntityKafkaContent />
-    </EntityLayout.Route>
-    <EntityLayout.Route path="/lighthouse" title="Lighthouse">
-      <EntityLighthouseContent />
     </EntityLayout.Route>
   </EntityLayout>
 );
@@ -414,13 +270,6 @@ const apiPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
-       {/* Place the following section where you want the tab to appear */}
-       <EntityLayout.Route if={isGitlabAvailable} path="/gitlab" title="Gitlab">
-      <EntityGitlabContent />
-    </EntityLayout.Route>
-
-
-    
   </EntityLayout>
 );
 

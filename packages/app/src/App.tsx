@@ -13,17 +13,15 @@ import {
 import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
-import { TechRadarPage } from '@backstage/plugin-tech-radar';
 import {
-  techdocsPlugin,
-  DefaultTechDocsHome,
   TechDocsIndexPage,
+  techdocsPlugin,
   TechDocsReaderPage,
 } from '@backstage/plugin-techdocs';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
-import { apis, oidcAuthApiRef } from './apis';
+import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
@@ -31,8 +29,7 @@ import { Root } from './components/Root';
 import {
   AlertDisplay,
   OAuthRequestDialog,
-  ProxiedSignInPage,
-  SignInProviderConfig,
+  SignInPage,
 } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
@@ -40,41 +37,7 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 
-import { githubAuthApiRef } from '@backstage/core-plugin-api';
-import { SignInPage } from '@backstage/core-components';
-import { HomePage } from './components/home/HomePage';
-import { HomepageCompositionRoot } from '@backstage/plugin-home';
-import { LighthousePage } from '@backstage-community/plugin-lighthouse';
-import { RagModal } from '@roadiehq/rag-ai';
-
-// const keycloakProvider: SignInProviderConfig = {
-//   id: 'oidc-auth-provider',
-//   title: 'Keycloak SSO',
-//   message: 'Sign in with Keycloak SSO',
-//   apiRef: oidcAuthApiRef,
-// };
-
 const app = createApp({
-  components: {
-    SignInPage: props => (
-      <SignInPage
-        {...props}
-        providers={[
-          'guest',
-          {
-            id: 'github-auth-provider',
-            title: 'GitHub',
-            message: 'Sign in using GitHub',
-            apiRef: githubAuthApiRef,
-          },
-          // keycloakProvider,
-        ]}
-      />
-    ),
-    // SignInPage: props => (
-    //   <ProxiedSignInPage {...props} provider="oauth2Proxy" />
-    // ),
-  },
   apis,
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
@@ -93,15 +56,14 @@ const app = createApp({
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
+  components: {
+    SignInPage: props => <SignInPage {...props} auto providers={['guest']} />,
+  },
 });
 
 const routes = (
   <FlatRoutes>
-    {/* <Route path="/" element={<Navigate to="catalog" />} /> */}
-    <Route path="/" element={<HomepageCompositionRoot />}>
-      <HomePage />
-    </Route>
-
+    <Route path="/" element={<Navigate to="catalog" />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
@@ -109,9 +71,7 @@ const routes = (
     >
       {entityPage}
     </Route>
-    <Route path="/docs" element={<TechDocsIndexPage />}>
-      <DefaultTechDocsHome />
-    </Route>
+    <Route path="/docs" element={<TechDocsIndexPage />} />
     <Route
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
@@ -122,11 +82,6 @@ const routes = (
     </Route>
     <Route path="/create" element={<ScaffolderPage />} />
     <Route path="/api-docs" element={<ApiExplorerPage />} />
-    <Route path="/lighthouse" element={<LighthousePage />} />
-    <Route
-      path="/tech-radar"
-      element={<TechRadarPage width={1500} height={800} />}
-    />
     <Route
       path="/catalog-import"
       element={
@@ -148,7 +103,6 @@ export default app.createRoot(
     <AlertDisplay />
     <OAuthRequestDialog />
     <AppRouter>
-      <RagModal />
       <Root>{routes}</Root>
     </AppRouter>
   </>,
