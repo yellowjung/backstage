@@ -112,7 +112,17 @@ catalog:
       target: ../../examples/org.yaml
       rules:
         - allow: [User, Group]
-
+  providers:
+    github:
+      providerId:
+        organization: 'litdip'
+        catalogPath: '/catalog-info.yaml'
+        filters:
+          branch: 'main'
+          repository: '.*'
+        schedule:
+          frequency: { minutes: 30}
+          timeout: { minutes: 3}
     ## Uncomment these lines to add more example data
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
