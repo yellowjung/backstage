@@ -82,10 +82,20 @@ techdocs:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 auth:
+  environment: development
+  session:
+    secret: ${SESSION_SECRET}
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers:
     # See https://backstage.io/docs/auth/guest/provider
     guest: {}
+    saml:
+        privateKey: ${SAML_PRIVATE_KEY}
+        entryPoint: ${SAML_ENTRYPOINT}
+        issuer: ${SAML_ISSUER}
+        cert: ${SAML_CERT}
+        audience: emailAddress
+        signatureAlgorithm: sha256
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -114,9 +124,9 @@ catalog:
         - allow: [User, Group]
   providers:
     github:
-      providerId:
-        organization: 'litdip'
-        catalogPath: '/catalog-info.yaml'
+      customProviderId:
+        organization: litdip
+        catalogPath: '0.source/catalog-info.yaml'
         filters:
           branch: 'main'
           repository: '.*'
