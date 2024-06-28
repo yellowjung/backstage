@@ -33,6 +33,8 @@ backend:
     allow:
       - host: saas-git.duckdns.org:6060
         skipSslVerification: true
+      - host: saasgit.duckdns.org
+        skipSslVerification: true
 
   database:
     #   client: better-sqlite3
@@ -63,7 +65,7 @@ integrations:
     - host: github.com
       # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
       # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
-      token: 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
+      token: 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
       #token: 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
     ### Example for how to add your GitHub Enterprise instance using the API:
     # - host: ghe.example.net
@@ -73,6 +75,9 @@ integrations:
     - host: saas-git.duckdns.org:6060
       token: glpat-eZpgH32CHysiNG25c7kn
       apiBaseUrl: https://saas-git.duckdns.org:6060/api/v4
+    - host: saasgit.duckdns.org
+      token: glpat-_QbH3xzzxTvr-QrAipuW
+      apiBaseUrl: https://saasgit.duckdns.org/api/v4
 
   argocd:
     - host: https://saas-argo.duckdns.org:30711/api/v1
@@ -217,6 +222,14 @@ catalog:
         - allow: [Template]
     - type: url
       target: https://github.com/yellowjung/golden_path/blob/main/github_version/0.config-server/template.yaml
+      rules:
+        - allow: [Template]
+    - type: url
+      target: https://github.com/yellowjung/golden_path/blob/main/3.%20nextJS/template.yaml
+      rules:
+        - allow: [Template]
+    - type: url
+      target: https://github.com/yellowjung/golden_path/blob/main/4.%20Springboot/template.yaml
       rules:
         - allow: [Template]
     ## Uncomment these lines to add more example data

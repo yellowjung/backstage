@@ -93,7 +93,6 @@ import { EntityAwsCodeBuildCard } from '@aws/aws-codebuild-plugin-for-backstage'
 import { EntityAwsCodePipelineCard, EntityAwsCodePipelineExecutionsContent, isAwsCodePipelineAvailable } from '@aws/aws-codepipeline-plugin-for-backstage';
 import {EntityAmazonEcsServicesContent} from '@aws/amazon-ecs-plugin-for-backstage';
 
-
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -317,6 +316,9 @@ const websiteEntityPage = (
     </EntityLayout.Route>
     < EntityLayout.Route path = "/ecs" title = "Amazon ECS" >
       <EntityAmazonEcsServicesContent / >
+    </EntityLayout.Route>
+    <EntityLayout.Route path="/kubernetes" title="Kubernetes">
+      <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">

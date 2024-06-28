@@ -81,7 +81,7 @@ export default async function createPlugin({
     console.log('Headers', JSON.stringify(req.header, null, 2));
     console.log('Query', JSON.stringify(req.query, null, 2));
     console.log('Body', JSON.stringify(req.body, null, 2));
-
+    res.send('Response');
     next();
   });
   
