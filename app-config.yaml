@@ -115,9 +115,9 @@ harbor:
 kafka:
   clientId: backstage
   clusters:
-    - name: cluster-name
+    - name: kafka-cluster
       brokers:
-        - localhost:9092
+        - 13.209.2.244:31187
 lighthouse:
   baseUrl: http://localhost:4008
 
@@ -132,13 +132,31 @@ ai:
       modelName: 'anthropic.claude-v2:1'
 
 proxy:
-  '/argocd/api':
-    target: https://saas-argo.duckdns.org:30711/api/v1
-    changeOrigin: true
-    secure: false
-    headers:
-      Cookie: "argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws"
-
+  endpoints:
+    '/argocd/api':
+      target: https://saas-argo.duckdns.org:30711/api/v1
+      changeOrigin: true
+      secure: false
+      headers:
+        Cookie: "argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTcxMzUyNDUsImlhdCI6MTcxNzEzNTI0NSwianRpIjoiOTE5MGMwNWUtOWM3YS00NTBiLTkyYTYtMWNlOGZiZjlkODdiIn0.eej3sj2fE-V9-UFQytg4AbjIHb3HNfYEkpW3nWZ2Xws"
+    "/kong-manager/api":
+      target: http://34.172.129.70:8001/
+      credentials: require
+      allowedHeaders: ['Authorization', 'Content-Type']
+      headers: 
+          Authorization: Basic wTLvYYqr6dkWyqjkXL09Bga3razYF7T3
+          Accept: application/json
+          Content-Type: 'application/json'
+      changeOrigin: true
+    "/kong-aws/api":
+      target: http://kong-alb-private-268192820.ap-northeast-2.elb.amazonaws.com:8080/
+      credentials: require
+      allowedHeaders: ['Authorization', 'Content-Type']
+      headers: 
+          Authorization: Basic 7f5603a8a8ad57ddf2ba7b0d5e89f4c5a619c14d
+          Accept: application/json
+          Content-Type: 'application/json'
+      changeOrigin: true
 ### Example for how to add a proxy endpoint for the frontend.
 ### A typical reason to do this is to handle HTTPS and CORS for internal services.
 # endpoints:

@@ -89,9 +89,10 @@ import { EntityLighthouseContent,
   isLighthouseAvailable,
  } from '@backstage-community/plugin-lighthouse';
 
-import { EntityAwsCodeBuildCard } from '@aws/aws-codebuild-plugin-for-backstage';
+import { EntityAwsCodeBuildCard, isAwsCodeBuildAvailable } from '@aws/aws-codebuild-plugin-for-backstage';
 import { EntityAwsCodePipelineCard, EntityAwsCodePipelineExecutionsContent, isAwsCodePipelineAvailable } from '@aws/aws-codepipeline-plugin-for-backstage';
-import {EntityAmazonEcsServicesContent} from '@aws/amazon-ecs-plugin-for-backstage';
+import {EntityAmazonEcsServicesContent, isAmazonEcsServiceAvailable} from '@aws/amazon-ecs-plugin-for-backstage';
+import { KongServiceManagerPage, isKongServiceManagerAvailable } from '@veecode-platform/plugin-kong-service-manager';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -108,7 +109,7 @@ const cicdContent = (
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <EntityGithubActionsContent />
     </EntitySwitch.Case>
-    <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
+    <EntitySwitch.Case if={isArgocdAvailable}>
         <Grid item sm={4}>
           <EntityArgoCDOverviewCard />
         </Grid>
@@ -180,12 +181,20 @@ const overviewContent = (
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
-    <Grid item md={6}>
-      <EntityAwsCodeBuildCard />
-    </Grid>
-    <Grid item md={6}>
-      <EntityAwsCodePipelineCard />
-    </Grid>
+    <EntitySwitch>
+      <EntitySwitch.Case if={isAwsCodeBuildAvailable}>
+        <Grid item md={6}>
+          <EntityAwsCodeBuildCard />
+        </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
+    <EntitySwitch>
+      <EntitySwitch.Case if={isAwsCodePipelineAvailable}>
+        <Grid item md={6}>
+        <EntityAwsCodePipelineCard />
+      </Grid>
+      </EntitySwitch.Case>
+    </EntitySwitch>
     <Grid item md={6}>
       <EntitySonarQubeCard variant="gridItem" />
     </Grid>
@@ -250,7 +259,7 @@ const serviceEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/pipeline" title="PIPELINE">
+    <EntityLayout.Route if={isAwsCodePipelineAvailable} path="/pipeline" title="PIPELINE">
       {pipelineContent}
     </EntityLayout.Route>
 
@@ -277,7 +286,7 @@ const serviceEntityPage = (
         </Grid>
       </Grid>
     </EntityLayout.Route>
-    < EntityLayout.Route path = "/ecs" title = "Amazon ECS" >
+    < EntityLayout.Route if={isAmazonEcsServiceAvailable} path = "/ecs" title = "Amazon ECS" >
       <EntityAmazonEcsServicesContent / >
     </EntityLayout.Route>
     <EntityLayout.Route path="/docs" title="Docs">
@@ -298,6 +307,9 @@ const serviceEntityPage = (
     <EntityLayout.Route path="/lighthouse" title="Lighthouse">
       <EntityLighthouseContent />
     </EntityLayout.Route>
+    <EntityLayout.Route if={isKongServiceManagerAvailable} path="/kong-service-manager" title="Kong">
+     <KongServiceManagerPage/>
+</EntityLayout.Route>
   </EntityLayout>
 );
 
@@ -311,10 +323,11 @@ const websiteEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/pipeline" title="PIPELINE">
+    <EntityLayout.Route if={isAwsCodePipelineAvailable} path="/pipeline" title="PIPELINE">
       {pipelineContent}
     </EntityLayout.Route>
-    < EntityLayout.Route path = "/ecs" title = "Amazon ECS" >
+
+    < EntityLayout.Route if={isAmazonEcsServiceAvailable} path = "/ecs" title = "Amazon ECS" >
       <EntityAmazonEcsServicesContent / >
     </EntityLayout.Route>
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
@@ -347,6 +360,9 @@ const websiteEntityPage = (
     </EntityLayout.Route>
     <EntityLayout.Route path="/lighthouse" title="Lighthouse">
       <EntityLighthouseContent />
+    </EntityLayout.Route>
+    <EntityLayout.Route if={isKongServiceManagerAvailable} path="/kong-service-manager" title="Kong">
+     <KongServiceManagerPage/>
     </EntityLayout.Route>
   </EntityLayout>
 );
