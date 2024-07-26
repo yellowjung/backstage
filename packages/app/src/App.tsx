@@ -37,9 +37,6 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 
-import { HomepageCompositionRoot } from '@backstage/plugin-home';
-import { HomePage } from './components/home/HomePage';
-
 const app = createApp({
   apis,
   bindRoutes({ bind }) {
@@ -60,17 +57,13 @@ const app = createApp({
     });
   },
   components: {
-    SignInPage: props => <SignInPage {...props} providers={[
-      'guest',
-    ]} />,
+    SignInPage: props => <SignInPage {...props} auto providers={['guest']} />,
   },
 });
 
 const routes = (
   <FlatRoutes>
-    <Route path="/" element={<HomepageCompositionRoot/>} >
-      <HomePage/>
-    </Route>
+    <Route path="/" element={<Navigate to="catalog" />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"

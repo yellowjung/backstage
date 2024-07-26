@@ -1,5 +1,5 @@
 app:
-  title: Backstage App
+  title: Scaffolded Backstage App
   baseUrl: http://localhost:3000
 
 organization:
@@ -28,20 +28,8 @@ backend:
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
   database:
-    # client: better-sqlite3
-    # connection: ':memory:'
-    client: pg
-    # connection:
-    #   host: 127.0.0.1
-    #   # host: 172.19.152.150
-    #   port: 55432
-    #   user: backstage
-    #   password: secret
-    connection:
-      host: ${POSTGRES_HOST}
-      port: ${POSTGRES_PORT}
-      user: ${POSTGRES_USER}
-      password: ${POSTGRES_PASSWORD}
+    client: better-sqlite3
+    connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 integrations:
@@ -62,14 +50,7 @@ proxy:
   #   '/test':
   #     target: 'https://example.com'
   #     changeOrigin: true
-  '/argocd/api':
-    target: ${ARGOCD_URL}
-    changeOrigin: true
-    # only if your argocd api has self-signed cert
-    secure: false
-    headers:
-      Cookie:
-        $env: ${ARGOCD_AUTH_TOKEN}
+
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.
@@ -82,20 +63,10 @@ techdocs:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 auth:
-  environment: development
-  session:
-    secret: ${SESSION_SECRET}
   # see https://backstage.io/docs/auth/ to learn about auth providers
   providers:
     # See https://backstage.io/docs/auth/guest/provider
     guest: {}
-    saml:
-        privateKey: ${SAML_PRIVATE_KEY}
-        entryPoint: ${SAML_ENTRYPOINT}
-        issuer: ${SAML_ISSUER}
-        cert: ${SAML_CERT}
-        audience: emailAddress
-        signatureAlgorithm: sha256
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -122,17 +93,7 @@ catalog:
       target: ../../examples/org.yaml
       rules:
         - allow: [User, Group]
-  providers:
-    github:
-      customProviderId:
-        organization: litdip
-        catalogPath: '0.source/catalog-info.yaml'
-        filters:
-          branch: 'main'
-          repository: '.*'
-        schedule:
-          frequency: { minutes: 30}
-          timeout: { minutes: 3}
+
     ## Uncomment these lines to add more example data
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
