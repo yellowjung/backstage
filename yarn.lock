@@ -9872,6 +9872,7 @@ apg-lite@^1.0.3:
     "@backstage/plugin-catalog-graph" "^0.4.7"
     "@backstage/plugin-catalog-import" "^0.12.1"
     "@backstage/plugin-catalog-react" "^1.12.2"
+    "@backstage/plugin-home" "^0.7.8"
     "@backstage/plugin-org" "^0.6.27"
     "@backstage/plugin-permission-react" "^0.4.24"
     "@backstage/plugin-scaffolder" "^1.23.0"
@@ -19713,7 +19714,7 @@ pg-types@^2.1.0:
     postgres-date "~1.0.4"
     postgres-interval "^1.1.0"
 
-pg@^8.11.3:
+pg@^8.11.3, pg@^8.12.0:
   version "8.12.0"
   resolved "https://registry.yarnpkg.com/pg/-/pg-8.12.0.tgz#9341724db571022490b657908f65aee8db91df79"
   integrity sha512-A+LHUSnwnxrnL/tZ+OLfqR1SxLN3c/pgDztZ47Rpbsd4jUytsTtwQo/TLPRzPJMp/1pbhYVhH9cuSZLAajNfjQ==
