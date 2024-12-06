@@ -37,6 +37,7 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { RandomJokePage } from '@internal/backstage-plugin-random-joke';
+import { EcrPage } from '@internal/backstage-plugin-ecr';
 
 const app = createApp({
   apis,
@@ -97,6 +98,7 @@ const routes = (
     <Route path="/settings" element={<UserSettingsPage />} />
     <Route path="/catalog-graph" element={<CatalogGraphPage />} />
     <Route path="/random-joke" element={<RandomJokePage />} />
+    <Route path="/ecr" element={<EcrPage />} />
   </FlatRoutes>
 );
 
