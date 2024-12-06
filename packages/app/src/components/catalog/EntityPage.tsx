@@ -63,6 +63,10 @@ import {
   RandomJokeCard,
 } from '@internal/backstage-plugin-random-joke';
 
+import{
+  EcrPage,
+} from '@internal/backstage-plugin-ecr';
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -206,6 +210,10 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
       {cicdContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/ecr" title="ECR">
+      <EcrPage />
     </EntityLayout.Route>
 
     <EntityLayout.Route

@@ -1,5 +1,6 @@
 import { Entity } from '@backstage/catalog-model'
 import {
+  createComponentExtension,
   createPlugin,
   createRoutableExtension,
 } from '@backstage/core-plugin-api';
@@ -17,11 +18,12 @@ export const ecrPlugin = createPlugin({
 
 
 export const EcrPage = ecrPlugin.provide(
-  createRoutableExtension({
+  createComponentExtension({
     name: 'EcrPage',
-    component: () =>
-      import('./components/ExampleComponent').then(m => m.ExampleComponent),
-    mountPoint: rootRouteRef,
+    component: {
+      lazy: () =>
+        import('./components/ECRRepository/ECRRepository').then(m => m.ECRRepository)
+    }
   }),
 );
 
