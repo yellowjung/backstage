@@ -59,6 +59,10 @@ import {
   isKubernetesAvailable,
 } from '@backstage/plugin-kubernetes';
 
+import {
+  RandomJokeCard,
+} from '@internal/backstage-plugin-random-joke';
+
 const techdocsContent = (
   <EntityTechdocsContent>
     <TechDocsAddons>
@@ -141,6 +145,9 @@ const overviewContent = (
     </Grid>
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
+    </Grid>
+    <Grid item md={6}>
+      <RandomJokeCard />
     </Grid>
   </Grid>
 );

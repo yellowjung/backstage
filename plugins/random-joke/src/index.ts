@@ -1,1 +1,1 @@
-export { randomJokePlugin, RandomJokePage } from './plugin';
+export { randomJokePlugin, RandomJokePage, RandomJokeCard } from './plugin';
