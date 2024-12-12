@@ -40,7 +40,6 @@
     "@backstage/plugin-search-backend-node": "^1.3.5",
     "@backstage/plugin-techdocs-backend": "^1.11.2",
     "@internal/backstage-plugin-ecrrepository-backend-backend": "^0.1.0",
-    "app": "link:../app",
     "better-sqlite3": "^9.0.0",
     "node-gyp": "^10.0.0",
     "pg": "^8.11.3"
