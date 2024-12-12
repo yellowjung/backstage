@@ -63,7 +63,7 @@ import {
   RandomJokeCard,
 } from '@internal/backstage-plugin-random-joke';
 
-import{
+import {
   EcrPage,
 } from '@internal/backstage-plugin-ecr';
 
@@ -215,8 +215,8 @@ const websiteEntityPage = (
     <EntityLayout.Route path="/ecr" title="ECR">
       <EcrPage />
     </EntityLayout.Route>
- 
- 
+
+
     <EntityLayout.Route
       path="/kubernetes"
       title="Kubernetes"
